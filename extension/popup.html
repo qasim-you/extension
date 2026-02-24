@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Groq AI Auto Reply</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body class="light" id="popup-body">
+
+  <!-- Header -->
+  <header class="popup-header">
+    <div class="popup-logo">
+      <span class="logo-icon">⚡</span>
+      <div>
+        <h1 class="popup-title">Groq AI Reply</h1>
+        <p class="popup-sub">LinkedIn Auto Reply</p>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+    </button>
+  </header>
+
+  <!-- Status Banner -->
+  <div class="status-banner" id="statusBanner">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Extension Active</span>
+    <label class="toggle-switch" title="Enable/Disable extension">
+      <input type="checkbox" id="enableToggle" checked />
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <!-- Usage Stats -->
+  <section class="stats-section">
+    <div class="stat-card">
+      <div class="stat-number" id="repliesUsed">0</div>
+      <div class="stat-label">Used Today</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-card">
+      <div class="stat-number" id="repliesRemaining">10</div>
+      <div class="stat-label">Remaining</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-card">
+      <div class="stat-number">10</div>
+      <div class="stat-label">Daily Limit</div>
+    </div>
+  </section>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Tone Selector -->
+  <section class="settings-section">
+    <h2 class="section-title">Reply Tone</h2>
+    <div class="tone-grid" id="toneGrid">
+      <button class="tone-btn active" data-tone="professional">
+        <span class="tone-emoji">👔</span>
+        <span class="tone-name">Professional</span>
+      </button>
+      <button class="tone-btn" data-tone="friendly">
+        <span class="tone-emoji">😊</span>
+        <span class="tone-name">Friendly</span>
+      </button>
+      <button class="tone-btn" data-tone="founder">
+        <span class="tone-emoji">🚀</span>
+        <span class="tone-name">Founder Mode</span>
+      </button>
+      <button class="tone-btn" data-tone="motivational">
+        <span class="tone-emoji">💪</span>
+        <span class="tone-name">Motivational</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Smart Filter Info -->
+  <section class="settings-section">
+    <h2 class="section-title">Smart Filters</h2>
+    <div class="filter-list">
+      <div class="filter-item">
+        <span class="filter-icon filter-icon--green">✓</span>
+        <span>Questions, Opinions, Congratulations</span>
+      </div>
+      <div class="filter-item">
+        <span class="filter-icon filter-icon--red">✗</span>
+        <span>Toxic, Spam, Political content</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Server Status -->
+  <section class="settings-section">
+    <h2 class="section-title">Backend Status</h2>
+    <div class="server-status" id="serverStatus">
+      <div class="server-dot" id="serverDot"></div>
+      <span id="serverStatusText">Checking...</span>
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="popup-actions">
+    <button class="btn-reset" id="resetBtn">🔄 Reset Counter</button>
+    <a class="btn-help" href="https://github.com" target="_blank">📖 Docs</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="popup-footer">
+    <span>LinkedIn Groq AI Reply v1.0.0</span>
+    <span class="footer-separator">•</span>
+    <span>Powered by LLaMA3-70B</span>
+  </footer>
+
+  <div class="popup-toast" id="popupToast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

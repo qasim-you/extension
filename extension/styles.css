@@ -1,0 +1,215 @@
+/* ─── Content Script Styles - LinkedIn Groq AI Auto Reply ─────────────── */
+/* Injected into LinkedIn pages */
+
+/* ── Button ─────────────────────────────────────────────────────────────── */
+.groq-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    padding: 0 4px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.groq-reply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    line-height: 1;
+    vertical-align: middle;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+    text-decoration: none !important;
+    letter-spacing: 0.1px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: none;
+}
+
+.groq-reply-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0);
+    transition: background 0.2s;
+}
+
+.groq-reply-btn:hover::before {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.groq-reply-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 5px 18px rgba(14, 165, 233, 0.5);
+}
+
+.groq-reply-btn:active {
+    transform: scale(0.97);
+}
+
+.groq-reply-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.groq-reply-btn--loading .groq-btn-icon {
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.groq-btn-icon {
+    font-size: 13px;
+    line-height: 1;
+    display: inline-block;
+}
+
+.groq-btn-label {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ── Badges ─────────────────────────────────────────────────────────────── */
+.groq-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: inherit;
+    line-height: 1.4;
+    letter-spacing: 0.1px;
+}
+
+.groq-badge--question {
+    background: rgba(14, 165, 233, 0.12);
+    color: #0284c7;
+    border: 1px solid rgba(14, 165, 233, 0.25);
+}
+
+.groq-badge--congratulation {
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803d;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.groq-badge--negative {
+    background: rgba(245, 158, 11, 0.12);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.groq-badge--opinion {
+    background: rgba(139, 92, 246, 0.12);
+    color: #7c3aed;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.groq-badge--general {
+    background: rgba(100, 116, 139, 0.1);
+    color: #475569;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.groq-badge--toxic,
+.groq-badge--spam,
+.groq-badge--political {
+    background: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ── Toast Notifications ─────────────────────────────────────────────────── */
+.groq-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: 380px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(20px) translateY(0);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.groq-toast--visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    pointer-events: auto;
+}
+
+.groq-toast--success {
+    background: #0f172a;
+    color: #4ade80;
+    border-left: 4px solid #22c55e;
+}
+
+.groq-toast--error {
+    background: #0f172a;
+    color: #f87171;
+    border-left: 4px solid #ef4444;
+}
+
+.groq-toast--warning {
+    background: #0f172a;
+    color: #fbbf24;
+    border-left: 4px solid #f59e0b;
+}
+
+.groq-toast--info {
+    background: #0f172a;
+    color: #38bdf8;
+    border-left: 4px solid #0ea5e9;
+}
+
+/* Dark mode on LinkedIn (if user has it) */
+[data-theme="dark"] .groq-toast {
+    background: #1e293b;
+}
+
+/* ── Ripple on insertion ─────────────────────────────────────────────────── */
+@keyframes groq-ripple {
+    0% {
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0 12px rgba(14, 165, 233, 0);
+    }
+}
+
+.ql-editor:focus {
+    animation: groq-ripple 0.6s ease-out;
+}
